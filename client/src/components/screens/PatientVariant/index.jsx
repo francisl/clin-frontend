@@ -512,15 +512,15 @@ class PatientVariantScreen extends React.Component {
         // const canonical = filter(value.consequences, { canonical: true });
         const pick = filter(value.consequences, { pick: true });
         const nbValue = pick.length;
-        rowHeight[index] = nbValue <= 1 ? 32 : nbValue * 16 + 20;
+        rowHeight[index] = nbValue <= 1 ? 32 : nbValue * 20 + 20;
         if (nbValue <= 1 && (value.clinvar || (value.donors[donorIndex] ? value.donors[donorIndex].transmission : null))) {
-          rowHeight[index] = 2 * 16 + 20;
+          rowHeight[index] = 2 * 20 + 20;
         }
         const { mutationId } = value;
         const mutationIdWidth = this.calculateTitleWidth(mutationId);
         const mutationIdIdNbLine = Math.ceil(mutationIdWidth / 20);
-        if (rowHeight[index] < mutationIdIdNbLine * 16 + 20) {
-          rowHeight[index] = mutationIdIdNbLine * 16 + 20;
+        if (rowHeight[index] < mutationIdIdNbLine * 20 + 20) {
+          rowHeight[index] = mutationIdIdNbLine * 20 + 20;
         }
         rowHeight[index] = rowHeight[index] === 36 ? 32 : rowHeight[index];
         return rowHeight;

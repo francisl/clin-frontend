@@ -216,7 +216,7 @@ class VariantDetailsScreen extends React.Component {
         key: 'cdnaChange',
         label:
           'screen.variantDetails.summaryTab.consequencesTable.CDNAChangeColumn',
-        renderer: c => c.cdnaChange || '',
+        renderer: c => <span className="breakWord">{c.cdnaChange}</span>,
       },
       {
         key: 'strand',

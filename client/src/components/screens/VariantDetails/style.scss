@@ -249,9 +249,16 @@
                 font-family: $font;
                 font-size: 14px;
                 color: #536377;
-                line-height: 22px;
+                line-height: 22px;   
+                vertical-align: top;             
                 .capitalize{
                     text-transform: capitalize;
+                }
+
+                .breakWord{
+
+                    word-break: break-all;
+
                 }
                 ul{
                     padding: 0;
