@@ -99,11 +99,15 @@ class VariantNavigation extends React.Component {
     this.renderFilterType = this.renderFilterType.bind(this);
     this.handleAutoCompleteChange = this.handleAutoCompleteChange.bind(this);
     this.getHighlightSearch = this.getHighlightSearch.bind(this);
+<<<<<<< HEAD
     this.getHighlightSearchGene = this.getHighlightSearchGene.bind(this);
     this.handleGeneAutoCompleteChange = this.handleGeneAutoCompleteChange.bind(this);
     this.handleGeneSearch = this.handleGeneSearch.bind(this);
     this.handleGeneSelection = this.handleGeneSelection.bind(this);
     this.handleMenuSelection = this.handleMenuSelection.bind(this);
+=======
+    this.handleClick = this.handleClick.bind(this);
+>>>>>>> click event
     this.handleClickOutside = this.handleClickOutside.bind(this);
   }
 
@@ -136,6 +140,7 @@ class VariantNavigation extends React.Component {
     ));
   }
 
+<<<<<<< HEAD
   getHighlightSearchGene(value) {
     const { searchGeneValue } = this.state;
     const regex = new RegExp(searchGeneValue, 'i');
@@ -181,6 +186,24 @@ class VariantNavigation extends React.Component {
           activeMenu: [],
         });
       }
+=======
+  handleClick(e) {
+    console.log('patate', e);
+    let { activeMenu } = this.state;
+    console.log('activeMenu[0]', activeMenu[0]);
+    activeMenu = activeMenu[0] === e.key ? [] : [e.key];
+    this.setState({
+      activeMenu,
+    });
+  }
+
+  // eslint-disable-next-line class-methods-use-this
+  handleClickOutside(event) {
+    console.log('evnet', event.target);
+    console.log('this.wrapperRef', this.wrapperRef);
+    if (this.wrapperRef && !this.wrapperRef.contains(event.target)) {
+      alert('You clicked outside of me!');
+>>>>>>> click event
     }
   }
 
@@ -577,6 +600,7 @@ class VariantNavigation extends React.Component {
             onOpenChange={this.handleCategoryOpenChange}
             className="menu"
             openKeys={activeMenu}
+            onDeselect={() => { console.log('bye bye'); }}
           >
             {children}
           </Menu>
