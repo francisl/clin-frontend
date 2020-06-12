@@ -104,10 +104,14 @@ class VariantNavigation extends React.Component {
     this.handleGeneSearch = this.handleGeneSearch.bind(this);
     this.handleGeneSelection = this.handleGeneSelection.bind(this);
 <<<<<<< HEAD
+<<<<<<< HEAD
     this.handleMenuSelection = this.handleMenuSelection.bind(this);
 =======
     this.handleClick = this.handleClick.bind(this);
 >>>>>>> click event
+=======
+    this.handleMenuSelection = this.handleMenuSelection.bind(this);
+>>>>>>> Click outside to close
     this.handleClickOutside = this.handleClickOutside.bind(this);
   }
 
@@ -141,6 +145,9 @@ class VariantNavigation extends React.Component {
   }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Click outside to close
   getHighlightSearchGene(value) {
     const { searchGeneValue } = this.state;
     const regex = new RegExp(searchGeneValue, 'i');
@@ -167,6 +174,7 @@ class VariantNavigation extends React.Component {
   }
 
   handleMenuSelection(e) {
+<<<<<<< HEAD
     const { activeMenu } = this.state;
     const newActiveMenu = activeMenu === e.key ? [] : [e.key];
     this.setState({
@@ -189,21 +197,35 @@ class VariantNavigation extends React.Component {
 =======
   handleClick(e) {
     console.log('patate', e);
+=======
+>>>>>>> Click outside to close
     let { activeMenu } = this.state;
-    console.log('activeMenu[0]', activeMenu[0]);
     activeMenu = activeMenu[0] === e.key ? [] : [e.key];
     this.setState({
       activeMenu,
     });
   }
 
-  // eslint-disable-next-line class-methods-use-this
   handleClickOutside(event) {
+<<<<<<< HEAD
     console.log('evnet', event.target);
     console.log('this.wrapperRef', this.wrapperRef);
     if (this.wrapperRef && !this.wrapperRef.contains(event.target)) {
       alert('You clicked outside of me!');
 >>>>>>> click event
+=======
+    const openMenu = document.querySelector('.submenuOpen');
+    const clickX = event.clientX;
+    const clickY = event.clientY;
+    if (openMenu) {
+      const menuX = Number(openMenu.style.left.replace('px', ''));
+      const menuY = Number(openMenu.style.top.replace('px', ''));
+      if (clickX < menuX || clickX > (menuX + 300) || clickY < menuY || clickY > menuY + openMenu.offsetHeight) {
+        this.setState({
+          activeMenu: [],
+        });
+      }
+>>>>>>> Click outside to close
     }
   }
 
