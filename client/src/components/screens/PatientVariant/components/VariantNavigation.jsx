@@ -103,15 +103,7 @@ class VariantNavigation extends React.Component {
     this.handleGeneAutoCompleteChange = this.handleGeneAutoCompleteChange.bind(this);
     this.handleGeneSearch = this.handleGeneSearch.bind(this);
     this.handleGeneSelection = this.handleGeneSelection.bind(this);
-<<<<<<< HEAD
-<<<<<<< HEAD
     this.handleMenuSelection = this.handleMenuSelection.bind(this);
-=======
-    this.handleClick = this.handleClick.bind(this);
->>>>>>> click event
-=======
-    this.handleMenuSelection = this.handleMenuSelection.bind(this);
->>>>>>> Click outside to close
     this.handleClickOutside = this.handleClickOutside.bind(this);
   }
 
@@ -144,10 +136,6 @@ class VariantNavigation extends React.Component {
     ));
   }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> Click outside to close
   getHighlightSearchGene(value) {
     const { searchGeneValue } = this.state;
     const regex = new RegExp(searchGeneValue, 'i');
@@ -174,7 +162,6 @@ class VariantNavigation extends React.Component {
   }
 
   handleMenuSelection(e) {
-<<<<<<< HEAD
     const { activeMenu } = this.state;
     const newActiveMenu = activeMenu === e.key ? [] : [e.key];
     this.setState({
@@ -194,40 +181,6 @@ class VariantNavigation extends React.Component {
           activeMenu: [],
         });
       }
-=======
-  handleClick(e) {
-    console.log('patate', e);
-=======
->>>>>>> Click outside to close
-    let { activeMenu } = this.state;
-    let activeMenuClone = cloneDeep(activeMenu);
-    activeMenuClone = activeMenuClone[0] === e.key ? [] : [e.key];
-    activeMenu = activeMenu[0] === e.key ? [] : [e.key];
-    this.setState({
-      activeMenu: activeMenuClone,
-    });
-  }
-
-  handleClickOutside(event) {
-<<<<<<< HEAD
-    console.log('evnet', event.target);
-    console.log('this.wrapperRef', this.wrapperRef);
-    if (this.wrapperRef && !this.wrapperRef.contains(event.target)) {
-      alert('You clicked outside of me!');
->>>>>>> click event
-=======
-    const openMenu = document.querySelector('.submenuOpen');
-    const clickX = event.clientX;
-    const clickY = event.clientY;
-    if (openMenu) {
-      const menuX = Number(openMenu.style.left.replace('px', ''));
-      const menuY = Number(openMenu.style.top.replace('px', ''));
-      if (clickX < menuX || clickX > (menuX + openMenu.offsetWidth) || clickY < menuY || clickY > menuY + openMenu.offsetHeight) {
-        this.setState({
-          activeMenu: [],
-        });
-      }
->>>>>>> Click outside to close
     }
   }
 
@@ -624,6 +577,7 @@ class VariantNavigation extends React.Component {
             onOpenChange={this.handleCategoryOpenChange}
             className="menu"
             openKeys={activeMenu}
+            onDeselect={() => { console.log('bye bye'); }}
           >
             {children}
           </Menu>
