@@ -200,9 +200,11 @@ class VariantNavigation extends React.Component {
 =======
 >>>>>>> Click outside to close
     let { activeMenu } = this.state;
+    let activeMenuClone = cloneDeep(activeMenu);
+    activeMenuClone = activeMenuClone[0] === e.key ? [] : [e.key];
     activeMenu = activeMenu[0] === e.key ? [] : [e.key];
     this.setState({
-      activeMenu,
+      activeMenu: activeMenuClone,
     });
   }
 
@@ -220,7 +222,7 @@ class VariantNavigation extends React.Component {
     if (openMenu) {
       const menuX = Number(openMenu.style.left.replace('px', ''));
       const menuY = Number(openMenu.style.top.replace('px', ''));
-      if (clickX < menuX || clickX > (menuX + 300) || clickY < menuY || clickY > menuY + openMenu.offsetHeight) {
+      if (clickX < menuX || clickX > (menuX + openMenu.offsetWidth) || clickY < menuY || clickY > menuY + openMenu.offsetHeight) {
         this.setState({
           activeMenu: [],
         });
