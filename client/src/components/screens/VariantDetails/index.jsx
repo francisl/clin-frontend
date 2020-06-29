@@ -773,11 +773,8 @@ class VariantDetailsScreen extends React.Component {
 
   // eslint-disable-next-line class-methods-use-this
   getOmimData() {
-    console.log('gene', this.getGenes());
-
     return this.getGenes().map((g) => {
       // const lis = g.hpo ? g.hpo.map(h => (<li>{h}</li>)) : [];
-      console.log('a omin', g.omim);
       const geneLine = `${g.geneSymbol} ${g.geneMim ? `(MIN ${g.geneMim[0]})` : ''}`;
       const phenotype = g.omim ? g.omim.map(o => (
         <li>
