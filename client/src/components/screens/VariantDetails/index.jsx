@@ -184,6 +184,7 @@ class VariantDetailsScreen extends React.Component {
     this.getExternalCohortFrequencies = this.getExternalCohortFrequencies.bind(this);
     this.getGenes = this.getGenes.bind(this);
     this.getDonors = this.getDonors.bind(this);
+    this.getOmimData = this.getOmimData.bind(this);
     this.getHPODataSource = this.getHPODataSource.bind(this);
     this.handleGoToPatientScreen = this.handleGoToPatientScreen.bind(this);
     this.handleTabNavigation = this.handleTabNavigation.bind(this);
@@ -371,6 +372,47 @@ class VariantDetailsScreen extends React.Component {
                 />
               );
             } catch (e) { return ''; }
+          },
+        }),
+        columnWidth: COLUMN_WIDTH.WIDE,
+      },
+    ];
+
+    this.state.omimColumnPreset = [
+      {
+        key: 'geneLocus',
+        label: 'screen.variantDetails.clinicalAssociationsTab.geneLocus',
+        renderer: createCellRenderer('custom', this.getGenes, {
+          renderer: (data) => { try { return data.geneSymbol; } catch (e) { return ''; } },
+        }),
+        columnWidth: COLUMN_WIDTH.WIDE,
+      },
+      {
+        key: 'phenotype',
+        label: 'screen.variantDetails.clinicalAssociationsTab.phenotype',
+        renderer: createCellRenderer('custom', this.getGenes, {
+          renderer: (data) => {
+            try {
+              const lis = data.orphanet.map(o => (<li>{o}</li>));
+              return (<ul>{lis}</ul>);
+            } catch (e) {
+              return '';
+            }
+          },
+        }),
+        columnWidth: COLUMN_WIDTH.WIDE,
+      },
+      {
+        key: 'transmission',
+        label: 'screen.variantDetails.clinicalAssociationsTab.transmission',
+        renderer: createCellRenderer('custom', this.getGenes, {
+          renderer: (data) => {
+            try {
+              const lis = data.radboudumc.map(r => (<li>{r}</li>));
+              return (<ul>{lis}</ul>);
+            } catch (e) {
+              return '';
+            }
           },
         }),
         columnWidth: COLUMN_WIDTH.WIDE,
@@ -729,6 +771,28 @@ class VariantDetailsScreen extends React.Component {
     });
   }
 
+  // eslint-disable-next-line class-methods-use-this
+  getOmimData() {
+    console.log('gene', this.getGenes());
+
+    return this.getGenes().map((g) => {
+      // const lis = g.hpo ? g.hpo.map(h => (<li>{h}</li>)) : [];
+      console.log('a omin', g.omim);
+      const geneLine = `${g.geneSymbol} ${g.geneMim ? `(MIN ${g.geneMim[0]})` : ''}`;
+      const phenotype = g.omim ? g.omim.map(o => (
+        <li>
+          {o.phenotype} (MIN {o.phenotypeMim})
+        </li>
+      )) : '--';
+      const transmission = g.omim ? g.omim.map(o => (
+        <li>
+          {o.inheritance.join(',')}
+        </li>
+      )) : '--';
+      return { geneLocus: (<span className="orphanetValue">{geneLine}</span>), phenotype: (<ul className="omimValue">{phenotype}</ul>), transmission: <ul className="omimValue">{transmission}</ul> };
+    });
+  }
+
   getHPODataSource() {
     const { variantDetails } = this.props;
     const { data } = variantDetails;
@@ -832,6 +896,7 @@ class VariantDetailsScreen extends React.Component {
       internalCohortsFrequenciesColumnPreset,
       externalCohortsFrequenciesColumnPreset,
       clinVarColumnPreset,
+      omimColumnPreset,
       associationColumnPreset,
       HPOColumnPreset,
       donorsColumnPreset,
@@ -1171,6 +1236,24 @@ class VariantDetailsScreen extends React.Component {
                     }}
                     dataSource={this.getAssociationData()}
                     columns={associationColumnPreset.map(
+                      columnPresetToColumn,
+                    )}
+                  />
+                </Col>
+              </Row>
+
+              <Row>
+                <Col>{header('OMIM')}</Col>
+              </Row>
+              <Row type="flex" className="omimTable">
+                <Col>
+                  <Table
+                    pagination={false}
+                    locale={{
+                      emptyText: (<Empty image={false} description="Aucune donnée disponible" />),
+                    }}
+                    dataSource={this.getOmimData()}
+                    columns={omimColumnPreset.map(
                       columnPresetToColumn,
                     )}
                   />
